@@ -26,7 +26,12 @@ export default {
     }
 
     try {
-      return new Response(generateSVG(id), {
+      // Check for user_icon query parameter
+      const showUserIcon = url.searchParams.has("user_icon");
+
+      const svgOptions = showUserIcon ? { showUserIcon: true } : {};
+
+      return new Response(generateSVG(id, svgOptions), {
         headers: {
           "Content-Type": "image/svg+xml",
           "Cache-Control": "public, immutable, max-age=31536000",
