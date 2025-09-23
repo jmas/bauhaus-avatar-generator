@@ -6,7 +6,7 @@ function crc32(str: string): number {
   return (crc ^ -1) >>> 0;
 }
 
-// Таблиця для CRC32
+// CRC32 lookup table
 const table: number[] = (() => {
   let c: number;
   const table: number[] = [];
@@ -20,7 +20,7 @@ const table: number[] = (() => {
   return table;
 })();
 
-// Лінійний конгруентний генератор (детермінований)
+// Linear congruential generator (deterministic)
 function makeRand(seed: number): () => number {
   return function (): number {
     seed = (seed * 1664525 + 1013904223) % 4294967296;
@@ -28,7 +28,7 @@ function makeRand(seed: number): () => number {
   };
 }
 
-// Палiтри кольорiв з вагами
+// Color palettes with weights
 function createWeightedPalette(colors: string[], weights: number[]): string[] {
   const weightedPalette: string[] = [];
   for (let i = 0; i < colors.length; i++) {
@@ -39,7 +39,7 @@ function createWeightedPalette(colors: string[], weights: number[]): string[] {
   return weightedPalette;
 }
 
-// Дефолтна палітра
+// Default palette
 const DEFAULT_COLORS = ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57"];
 const DEFAULT_WEIGHTS = [30, 25, 20, 15, 10];
 
