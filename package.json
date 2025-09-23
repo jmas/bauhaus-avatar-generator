@@ -1,7 +1,7 @@
 {
   "name": "bauhaus-avatar-generator",
   "version": "2.1.0",
-  "description": "A TypeScript library for generating Bauhaus-style SVG avatars from any input string",
+  "description": "A TypeScript library for generating deterministic Bauhaus-style SVG avatars with 2x2 grid layouts and weighted color palettes",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -30,7 +30,11 @@
     "svg",
     "typescript",
     "geometric",
-    "art"
+    "art",
+    "deterministic",
+    "weighted-colors",
+    "grid-layout",
+    "crc32"
   ],
   "author": "",
   "license": "MIT",
