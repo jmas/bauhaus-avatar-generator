@@ -66,7 +66,7 @@ export function generateSVG(input: string, size: number = 512): string {
   const rand = makeRand(seed);
   const palette = pickPalette(rand);
   const colors = palette;
-  const cell = Math.floor(size / 3);
+  const cell = size / 3;
   const inner = cell;
 
   const svgElems: string[] = [
