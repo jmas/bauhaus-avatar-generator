@@ -41,6 +41,30 @@ const avatar = generateSVG("alice", 256);
 console.log(avatar);
 ```
 
+### With Custom Color Palette
+
+```typescript
+import { generateSVG } from "bauhaus-avatar-generator";
+
+// Define your own color palette
+const customPalette = [
+  "#FF6B6B", // Coral
+  "#4ECDC4", // Teal
+  "#45B7D1", // Blue
+  "#96CEB4", // Mint
+  "#FFEAA7", // Yellow
+  "#DDA0DD", // Plum
+  "#98D8C8", // Seafoam
+  "#F7DC6F", // Gold
+  "#BB8FCE", // Lavender
+  "#85C1E9", // Sky blue
+];
+
+// Generate avatar with custom palette
+const avatar = generateSVG("alice", 256, customPalette);
+console.log(avatar);
+```
+
 ### In HTML
 
 ```html
@@ -71,11 +95,17 @@ import { generateSVG } from "bauhaus-avatar-generator";
 interface AvatarProps {
   input: string;
   size?: number;
+  palette?: string[];
   className?: string;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ input, size = 200, className }) => {
-  const svg = generateSVG(input, size);
+const Avatar: React.FC<AvatarProps> = ({
+  input,
+  size = 200,
+  palette,
+  className,
+}) => {
+  const svg = generateSVG(input, size, palette);
 
   return (
     <div className={className} dangerouslySetInnerHTML={{ __html: svg }} />
@@ -84,11 +114,12 @@ const Avatar: React.FC<AvatarProps> = ({ input, size = 200, className }) => {
 
 // Usage
 <Avatar input="user@example.com" size={150} />;
+<Avatar input="user@example.com" size={150} palette={customPalette} />;
 ```
 
 ## API Reference
 
-### `generateSVG(input: string, size?: number): string`
+### `generateSVG(input: string, size?: number, customPalette?: string[]): string`
 
 Generates a Bauhaus-style SVG avatar from an input string.
 
@@ -96,6 +127,7 @@ Generates a Bauhaus-style SVG avatar from an input string.
 
 - `input` (string): The input string to generate the avatar from. Can be any string (email, username, ID, etc.)
 - `size` (number, optional): The size of the generated avatar in pixels. Defaults to 512.
+- `customPalette` (string[], optional): Custom color palette as an array of hex color strings. If not provided, uses the default Bauhaus-inspired palette.
 
 **Returns:**
 
@@ -106,6 +138,32 @@ Generates a Bauhaus-style SVG avatar from an input string.
 ```typescript
 const avatar = generateSVG("hello@world.com", 300);
 // Returns: <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">...</svg>
+
+const customAvatar = generateSVG("hello@world.com", 300, [
+  "#FF0000",
+  "#00FF00",
+  "#0000FF",
+]);
+// Returns: <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">...</svg>
+```
+
+### Default Color Palette
+
+The library comes with a beautiful default palette inspired by Bauhaus design:
+
+```typescript
+const DEFAULT_PALETTE = [
+  "#EC5539", // Red-orange
+  "#3D353C", // Dark gray
+  "#F5E8C5", // Cream
+  "#C08B5F", // Brown
+  "#FEFEFE", // White
+  "#FBC853", // Yellow
+  "#60676F", // Gray
+  "#EDC188", // Light brown
+  "#C5D5D9", // Light blue-gray
+  "#0781BB", // Blue
+];
 ```
 
 ## How It Works
@@ -113,7 +171,7 @@ const avatar = generateSVG("hello@world.com", 300);
 The avatar generator uses a deterministic algorithm that:
 
 1. **Hashes the input** - Uses CRC32 to convert any string into a consistent number
-2. **Selects a palette** - Chooses from predefined Bauhaus-inspired color palettes
+2. **Uses color palette** - Applies colors from the provided palette (or default palette)
 3. **Generates shapes** - Creates a 3x3 grid of geometric shapes including:
    - Circles
    - Triangles
@@ -125,6 +183,11 @@ The avatar generator uses a deterministic algorithm that:
    - Dots
    - Chevrons
 4. **Applies transformations** - Rotates shapes and applies colors based on the hash
+5. **Random pattern selection** - Each avatar randomly selects one of the 80 available patterns
+6. **Standardized sizing** - All patterns use consistent size constants (tiny, small, medium, large, xlarge) for professional appearance
+7. **Single pattern focus** - Renders one clean geometric pattern per avatar instead of a 3x3 grid
+8. **Enhanced color randomization** - Each pattern element uses random colors from the palette for maximum visual variety
+9. **Size and position randomization** - Figures within patterns have randomized sizes (±30% variation) and positions (±20% variation) for dynamic, organic appearance
 
 ## Design Philosophy
 
@@ -149,6 +212,18 @@ MIT License - see [LICENSE](LICENSE) file for details.
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Changelog
+
+### 1.3.0
+
+- ✨ **New**: Custom color palette support
+- 🎨 **Updated**: New default Bauhaus-inspired color palette
+- 📚 **Improved**: Enhanced documentation with palette examples
+- 🔧 **Enhanced**: All 80 geometric patterns now use dynamic color palette
+- 🎲 **New**: Smart cell pattern selection - ensures variety by avoiding duplicate patterns and distributing across categories
+- 📐 **Enhanced**: Standardized pattern sizing and positioning for more consistent, professional appearance
+- 🎯 **Updated**: Single pattern rendering instead of 3x3 grid for cleaner, more focused designs
+- 🎨 **New**: Enhanced color randomization - each pattern element uses random colors from the palette for maximum variety
+- 📏 **New**: Size randomization - figures within patterns have randomized sizes and positions for dynamic appearance
 
 ### 1.0.0
 
