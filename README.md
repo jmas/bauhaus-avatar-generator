@@ -228,6 +228,14 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Changelog
 
+### 3.0.0
+
+- 🚀 **Major version release** - Enhanced avatar generation with improved algorithms
+- 🎨 **Refined design system** - Optimized shape rendering and color distribution
+- ⚡ **Performance improvements** - Faster generation and better memory usage
+- 🔧 **Code optimization** - Cleaner, more maintainable codebase
+- 📦 **Updated dependencies** - Latest TypeScript and build tools
+
 ### 2.1.0
 
 - 🎨 **New**: 2x2 grid layout for cleaner, more balanced compositions
