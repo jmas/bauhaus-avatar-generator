@@ -183,12 +183,16 @@
         word-break: break-all;
       }
 
-      .github-link {
+      .links-section {
         margin-top: 2rem;
         text-align: center;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
       }
 
-      .github-link a {
+      .link-button {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
@@ -202,15 +206,26 @@
         background: white;
       }
 
-      .github-link a:hover {
+      .link-button:hover {
         background: #667eea;
         color: white;
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
       }
 
-      .github-link a svg {
+      .link-button svg {
         flex-shrink: 0;
+      }
+
+      .ukraine-link {
+        color: #ffd700;
+        border-color: #ffd700;
+      }
+
+      .ukraine-link:hover {
+        background: #ffd700;
+        color: #0057b7;
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
       }
 
       @media (max-width: 768px) {
@@ -302,11 +317,12 @@
         <p>• ⚡ Zero dependencies - lightweight and fast</p>
       </div>
 
-      <div class="github-link">
+      <div class="links-section">
         <a
           href="https://github.com/jmas/bauhaus-avatar-generator"
           target="_blank"
           rel="noopener noreferrer"
+          class="link-button"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path
@@ -314,6 +330,19 @@
             />
           </svg>
           View on GitHub
+        </a>
+
+        <a
+          href="https://war.ukraine.ua/support-ukraine/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link-button ukraine-link"
+        >
+          <svg width="20" height="13" viewBox="0 0 20 13" fill="none">
+            <rect width="20" height="6.5" y="0" fill="#0057B7" />
+            <rect width="20" height="6.5" y="6.5" fill="#FFD700" />
+          </svg>
+          Support Ukraine
         </a>
       </div>
     </div>
