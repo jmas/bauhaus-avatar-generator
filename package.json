@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.build.json && vite build",
+    "build": "vite build",
     "prepublishOnly": "npm run build",
     "type-check": "tsc --noEmit"
   },
@@ -43,8 +43,9 @@
   },
   "homepage": "",
   "devDependencies": {
+    "@types/node": "^22.0.0",
     "typescript": "~5.8.3",
     "vite": "^7.1.7",
-    "@types/node": "^22.0.0"
+    "vite-plugin-dts": "^4.5.4"
   }
 }
