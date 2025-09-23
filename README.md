@@ -15,6 +15,7 @@ A TypeScript library for generating beautiful, deterministic Bauhaus-style SVG a
 - 🎨 **2x2 grid layout** - Clean, balanced geometric compositions
 - 🎭 **9 shape types** - Circles, triangles, squares, diamonds, and more
 - 🔧 **Color collision prevention** - Ensures shapes are always visible
+- 👤 **User icon overlay** - Optional centered user icon that scales with avatar size
 
 ## Installation
 
@@ -47,6 +48,12 @@ const avatar2 = generateSVG("bob", {
   colors: ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57"],
   weights: [30, 25, 20, 15, 10],
   size: 300,
+});
+
+// Generate with user icon overlay
+const avatar3 = generateSVG("charlie", {
+  size: 400,
+  showUserIcon: true,
 });
 ```
 
@@ -140,6 +147,7 @@ interface GenerateOptions {
   colors?: string[]; // Array of hex color strings
   weights?: number[]; // Array of weights for each color (must match colors length)
   size?: number; // Size in pixels (default: 512)
+  showUserIcon?: boolean; // Show centered user icon overlay (default: false)
 }
 ```
 
