@@ -16,6 +16,6 @@
     "wrangler": "^4.38.0"
   },
   "dependencies": {
-    "bauhaus-avatar-generator": "^1.2.0"
+    "bauhaus-avatar-generator": "2.0.0"
   }
 }

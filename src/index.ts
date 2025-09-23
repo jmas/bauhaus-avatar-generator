@@ -280,29 +280,13 @@ function generatePattern(
     return colors;
   };
 
-  // Helper function to get random sizes with variation
-  const getRandomSize = (baseSize: number, variation: number = 0.3) => {
-    const minSize = baseSize * (1 - variation);
-    const maxSize = baseSize * (1 + variation);
-    return minSize + rand() * (maxSize - minSize);
-  };
-
-  // Helper function to get random position with variation
-  const getRandomPos = (basePos: number, variation: number = 0.2) => {
-    const minPos = basePos * (1 - variation);
-    const maxPos = basePos * (1 + variation);
-    return minPos + rand() * (maxPos - minPos);
-  };
   switch (pattern) {
     // Row 1 patterns (1-10)
     case "diagonal_split_red_blue_yellow_quarter": // 1.1
       const colors1 = getContrastingColors(3);
-      const circleX1 = getRandomPos(pos.quarter);
-      const circleY1 = getRandomPos(pos.threeQuarters);
-      const circleR1 = getRandomSize(sizes.large);
       return `<polygon points="0,0 ${inner},0 ${inner},${inner} 0,${inner}" fill="${colors1[0]}" />
               <polygon points="0,0 ${inner},${inner} 0,${inner}" fill="${colors1[1]}" />
-              <circle cx="${circleX1}" cy="${circleY1}" r="${circleR1}" fill="${colors1[2]}" />`;
+              <circle cx="${pos.quarter}" cy="${pos.threeQuarters}" r="${sizes.large}" fill="${colors1[2]}" />`;
 
     case "half_yellow_half_striped": // 1.2
       const colors2 = getContrastingColors(3);
@@ -389,18 +373,18 @@ function generatePattern(
 
     case "overlapping_yellow_blue_circles": // 1.8
       const colors8 = getContrastingColors(3);
-      const circle1X = getRandomPos(inner * 0.4);
-      const circle1Y = getRandomPos(inner * 0.4);
-      const circle2X = getRandomPos(inner * 0.6);
-      const circle2Y = getRandomPos(inner * 0.6);
-      const circle1R = getRandomSize(sizes.xlarge);
-      const circle2R = getRandomSize(sizes.xlarge);
-      const inner1R = getRandomSize(sizes.small);
-      const inner2R = getRandomSize(sizes.small);
-      return `<circle cx="${circle1X}" cy="${circle1Y}" r="${circle1R}" fill="${colors8[0]}" />
-              <circle cx="${circle2X}" cy="${circle2Y}" r="${circle2R}" fill="${colors8[1]}" />
-              <circle cx="${circle1X}" cy="${circle1Y}" r="${inner1R}" fill="${colors8[2]}" />
-              <circle cx="${circle2X}" cy="${circle2Y}" r="${inner2R}" fill="${colors8[2]}" />`;
+      return `<circle cx="${inner * 0.4}" cy="${inner * 0.4}" r="${
+        sizes.xlarge
+      }" fill="${colors8[0]}" />
+              <circle cx="${inner * 0.6}" cy="${inner * 0.6}" r="${
+        sizes.xlarge
+      }" fill="${colors8[1]}" />
+              <circle cx="${inner * 0.4}" cy="${inner * 0.4}" r="${
+        sizes.small
+      }" fill="${colors8[2]}" />
+              <circle cx="${inner * 0.6}" cy="${inner * 0.6}" r="${
+        sizes.small
+      }" fill="${colors8[2]}" />`;
 
     case "diagonal_split_red_blue_yellow_quarter_copy": // 1.9
       return `<polygon points="0,0 ${inner},0 ${inner},${inner} 0,${inner}" fill="${getSafeColor(
@@ -472,10 +456,9 @@ function generatePattern(
                 .join("")}`;
 
     case "solid_yellow_circle": // 2.5
-      const centerX = getRandomPos(pos.center, 0.1);
-      const centerY = getRandomPos(pos.center, 0.1);
-      const centerR = getRandomSize(sizes.full, 0.2);
-      return `<circle cx="${centerX}" cy="${centerY}" r="${centerR}" fill="${getRandomColor()}" />`;
+      return `<circle cx="${pos.center}" cy="${pos.center}" r="${
+        sizes.full
+      }" fill="${getRandomColor()}" />`;
 
     case "diagonal_red_stripes": // 2.6
       return Array.from({ length: 8 })
@@ -783,14 +766,9 @@ function generatePattern(
     // Row 5 patterns (41-50)
     case "concentric_red_circles": // 5.1
       const concentricColors = getContrastingColors(3);
-      const concentricX = getRandomPos(pos.center, 0.1);
-      const concentricY = getRandomPos(pos.center, 0.1);
-      const outerR = getRandomSize(sizes.xlarge);
-      const middleR = getRandomSize(sizes.large);
-      const innerR = getRandomSize(sizes.small);
-      return `<circle cx="${concentricX}" cy="${concentricY}" r="${outerR}" fill="${concentricColors[0]}" />
-              <circle cx="${concentricX}" cy="${concentricY}" r="${middleR}" fill="${concentricColors[1]}" />
-              <circle cx="${concentricX}" cy="${concentricY}" r="${innerR}" fill="${concentricColors[2]}" />`;
+      return `<circle cx="${pos.center}" cy="${pos.center}" r="${sizes.xlarge}" fill="${concentricColors[0]}" />
+              <circle cx="${pos.center}" cy="${pos.center}" r="${sizes.large}" fill="${concentricColors[1]}" />
+              <circle cx="${pos.center}" cy="${pos.center}" r="${sizes.small}" fill="${concentricColors[2]}" />`;
 
     case "semi_circles_blue_red_striped_copy": // 5.2
       return `<path d="M 0 ${inner * 0.5} A ${inner * 0.5} ${
@@ -897,22 +875,10 @@ function generatePattern(
 
     case "four_blue_dots": // 5.9
       const dotColors = getContrastingColors(4);
-      const dot1X = getRandomPos(pos.quarter);
-      const dot1Y = getRandomPos(pos.quarter);
-      const dot2X = getRandomPos(pos.threeQuarters);
-      const dot2Y = getRandomPos(pos.quarter);
-      const dot3X = getRandomPos(pos.quarter);
-      const dot3Y = getRandomPos(pos.threeQuarters);
-      const dot4X = getRandomPos(pos.threeQuarters);
-      const dot4Y = getRandomPos(pos.threeQuarters);
-      const dot1R = getRandomSize(sizes.small);
-      const dot2R = getRandomSize(sizes.small);
-      const dot3R = getRandomSize(sizes.small);
-      const dot4R = getRandomSize(sizes.small);
-      return `<circle cx="${dot1X}" cy="${dot1Y}" r="${dot1R}" fill="${dotColors[0]}" />
-              <circle cx="${dot2X}" cy="${dot2Y}" r="${dot2R}" fill="${dotColors[1]}" />
-              <circle cx="${dot3X}" cy="${dot3Y}" r="${dot3R}" fill="${dotColors[2]}" />
-              <circle cx="${dot4X}" cy="${dot4Y}" r="${dot4R}" fill="${dotColors[3]}" />`;
+      return `<circle cx="${pos.quarter}" cy="${pos.quarter}" r="${sizes.small}" fill="${dotColors[0]}" />
+              <circle cx="${pos.threeQuarters}" cy="${pos.quarter}" r="${sizes.small}" fill="${dotColors[1]}" />
+              <circle cx="${pos.quarter}" cy="${pos.threeQuarters}" r="${sizes.small}" fill="${dotColors[2]}" />
+              <circle cx="${pos.threeQuarters}" cy="${pos.threeQuarters}" r="${sizes.small}" fill="${dotColors[3]}" />`;
 
     case "concentric_red_circles_copy": // 5.10
       return `<circle cx="${inner / 2}" cy="${inner / 2}" r="${

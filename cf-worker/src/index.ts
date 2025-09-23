@@ -5,9 +5,9 @@ export default {
     const url = new URL(request.url);
 
     // Handle favicon.svg requests by passing them to the server
-    if (url.pathname === "/favicon.svg") {
-      return fetch(request);
-    }
+    // if (url.pathname === "/favicon.svg") {
+    //   return fetch(request);
+    // }
 
     const pathParts = url.pathname.split("/");
     const filename = pathParts.pop(); // abcd123.svg
