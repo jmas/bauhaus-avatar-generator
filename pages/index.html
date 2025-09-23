@@ -21,6 +21,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 2rem 1rem;
       }
 
       .container {
@@ -181,6 +182,10 @@
       }
 
       @media (max-width: 768px) {
+        body {
+          padding: 0;
+        }
+
         .container {
           padding: 2rem;
           margin: 1rem;
@@ -248,14 +253,14 @@
         <h3>Direct URL Access</h3>
         <p>You can access any avatar directly using this URL pattern:</p>
         <div class="url-example">
-          https://bauhaus-avatar-generator.js.org/{ID}.svg
+          https://bauhaus-avatar-generator.pp.ua/{ID}.svg
         </div>
 
         <h3>Examples</h3>
         <div class="url-example">
-          https://bauhaus-avatar-generator.js.org/john@example.com.svg<br />
-          https://bauhaus-avatar-generator.js.org/alice123.svg<br />
-          https://bauhaus-avatar-generator.js.org/user-456.svg
+          https://bauhaus-avatar-generator.pp.ua/john@example.com.svg<br />
+          https://bauhaus-avatar-generator.pp.ua/alice123.svg<br />
+          https://bauhaus-avatar-generator.pp.ua/user-456.svg
         </div>
 
         <h3>Features</h3>
@@ -275,7 +280,7 @@
           return;
         }
 
-        const avatarUrl = `https://bauhaus-avatar-generator.js.org/${encodeURIComponent(
+        const avatarUrl = `https://bauhaus-avatar-generator.pp.ua/${encodeURIComponent(
           input
         )}.svg`;
         const avatarImage = document.getElementById("avatarImage");
