@@ -1,0 +1,50 @@
+{
+  "name": "bauhaus-avatar-generator",
+  "version": "1.0.0",
+  "description": "A TypeScript library for generating Bauhaus-style SVG avatars from any input string",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.build.json && vite build",
+    "prepublishOnly": "npm run build",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "avatar",
+    "generator",
+    "bauhaus",
+    "svg",
+    "typescript",
+    "geometric",
+    "art"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "devDependencies": {
+    "typescript": "~5.8.3",
+    "vite": "^7.1.7",
+    "@types/node": "^22.0.0"
+  }
+}
