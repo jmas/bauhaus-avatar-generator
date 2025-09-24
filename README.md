@@ -7,6 +7,7 @@ A TypeScript library for generating beautiful, deterministic Bauhaus-style SVG a
 ## Features
 
 - 🎨 **Bauhaus-inspired design** - Clean, geometric shapes with bold colors
+- 🌈 **Gradient backgrounds** - Complex gradient patterns with color harmony
 - 🔄 **Deterministic generation** - Same input always produces the same avatar
 - 📱 **SVG output** - Scalable vector graphics that work everywhere
 - 🎯 **TypeScript support** - Full type definitions included
@@ -15,7 +16,9 @@ A TypeScript library for generating beautiful, deterministic Bauhaus-style SVG a
 - 🎨 **2x2 grid layout** - Clean, balanced geometric compositions
 - 🎭 **9 shape types** - Circles, triangles, squares, diamonds, and more
 - 🔧 **Color collision prevention** - Ensures shapes are always visible
-- 👤 **User icon overlay** - Optional centered user icon that scales with avatar size
+- 👤 **User icon overlay** - Optional centered user icon with automatic contrast color selection
+- 🎨 **Color harmony rules** - Complementary, triadic, analogous, and split-complementary color schemes
+- 🌊 **Algorithmic blending** - Smooth color transitions and gradient patterns
 
 ## Installation
 
@@ -28,19 +31,28 @@ npm install bauhaus-avatar-generator
 ### Basic Usage
 
 ```typescript
-import { generateSVG } from "bauhaus-avatar-generator";
+import { generateSVG, generateGradientSVG } from "bauhaus-avatar-generator";
 
-// Generate a 512x512 avatar with default palette
+// Generate a 512x512 Bauhaus-style avatar with default palette
 const avatar = generateSVG("john@example.com");
 console.log(avatar);
+
+// Generate a gradient-based avatar
+const gradientAvatar = generateGradientSVG("john@example.com");
+console.log(gradientAvatar);
 ```
 
 ### With Custom Options
 
 ```typescript
-import { generateSVG, GenerateOptions } from "bauhaus-avatar-generator";
+import {
+  generateSVG,
+  generateGradientSVG,
+  GenerateOptions,
+  GradientGenerateOptions,
+} from "bauhaus-avatar-generator";
 
-// Generate with custom size
+// Generate Bauhaus-style avatar with custom size
 const avatar = generateSVG("alice", { size: 256 });
 
 // Generate with custom colors and weights
@@ -52,6 +64,14 @@ const avatar2 = generateSVG("bob", {
 
 // Generate with user icon overlay
 const avatar3 = generateSVG("charlie", {
+  size: 400,
+  icon: "user",
+});
+
+// Generate gradient avatar with custom complexity and pattern
+const gradientAvatar = generateGradientSVG("diana", {
+  complexity: "complex",
+  pattern: "radial",
   size: 400,
   icon: "user",
 });
@@ -191,6 +211,15 @@ const DEFAULT_WEIGHTS = [30, 25, 20, 15, 10];
 
 This means coral red will appear in ~30% of color selections, turquoise in ~25%, and so on.
 
+### Smart Contrast Color for User Icons
+
+When using the `icon: "user"` option, the library automatically calculates the optimal contrast color for the user icon based on the background colors:
+
+- **Light backgrounds** (high luminance) → User icon appears in **black**
+- **Dark backgrounds** (low luminance) → User icon appears in **white**
+
+The contrast calculation uses the WCAG (Web Content Accessibility Guidelines) formula to ensure optimal readability and accessibility across all color palettes.
+
 ## How It Works
 
 The avatar generator uses a deterministic algorithm that:
@@ -210,7 +239,8 @@ The avatar generator uses a deterministic algorithm that:
    - Chevrons
 5. **Applies transformations** - Rotates shapes randomly (0°, 90°, 180°, 270°)
 6. **Prevents color collisions** - Ensures shape colors are always different from background colors
-7. **Uses deterministic randomness** - Linear Congruential Generator ensures same input always produces same result
+7. **Smart contrast icons** - User icons automatically use black or white based on background luminance for optimal visibility
+8. **Uses deterministic randomness** - Linear Congruential Generator ensures same input always produces same result
 
 ## Design Philosophy
 

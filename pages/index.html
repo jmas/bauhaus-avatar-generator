@@ -82,7 +82,8 @@
         font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
       }
 
-      .input-group input:focus {
+      .input-group input:focus,
+      .input-group select:focus {
         outline: none;
         border-color: #667eea;
       }
@@ -274,6 +275,23 @@
         </div>
 
         <div class="input-group">
+          <label for="typeSelect">Avatar Type</label>
+          <select
+            id="typeSelect"
+            style="
+              padding: 1rem;
+              border: 2px solid #e1e5e9;
+              border-radius: 10px;
+              font-size: 1rem;
+              transition: border-color 0.3s ease;
+            "
+          >
+            <option value="default" selected>Default</option>
+            <option value="gradient">Gradient</option>
+          </select>
+        </div>
+
+        <div class="input-group">
           <label
             for="userIconToggle"
             style="
@@ -342,16 +360,27 @@
           https://bauhaus-avatar-generator.pp.ua/{text}.svg?icon=user
         </div>
 
+        <h3>With Type Parameter</h3>
+        <p>
+          Add <code>?type=gradient</code> parameter to generate gradient
+          avatars:
+        </p>
+        <div class="url-example">
+          https://bauhaus-avatar-generator.pp.ua/{text}.svg?type=gradient
+        </div>
+
         <h3>Examples</h3>
         <div class="url-example">
           https://bauhaus-avatar-generator.pp.ua/hello.svg<br />
           https://bauhaus-avatar-generator.pp.ua/world.svg<br />
           https://bauhaus-avatar-generator.pp.ua/example.svg<br />
-          https://bauhaus-avatar-generator.pp.ua/user.svg?icon=user
+          https://bauhaus-avatar-generator.pp.ua/user.svg?icon=user<br />
+          https://bauhaus-avatar-generator.pp.ua/gradient.svg?type=gradient
         </div>
 
         <h3>Features</h3>
         <p>• 🎨 Bauhaus-inspired geometric design</p>
+        <p>• 🌈 Gradient avatars - add ?type=gradient parameter</p>
         <p>• 🔄 Deterministic - same input always produces the same avatar</p>
         <p>• 📱 SVG format - scalable and crisp at any size</p>
         <p>• 👤 Optional user icon overlay - add ?icon=user parameter</p>
@@ -398,13 +427,22 @@
         }
 
         const showUserIcon = document.getElementById("userIconToggle").checked;
+        const type = document.getElementById("typeSelect").value;
         let avatarUrl = `https://bauhaus-avatar-generator.pp.ua/${encodeURIComponent(
           input
         )}.svg`;
 
-        // Add icon=user parameter if checkbox is checked
+        // Add query parameters
+        const params = new URLSearchParams();
+        if (type !== "default") {
+          params.append("type", type);
+        }
         if (showUserIcon) {
-          avatarUrl += "?icon=user";
+          params.append("icon", "user");
+        }
+
+        if (params.toString()) {
+          avatarUrl += "?" + params.toString();
         }
 
         const avatarImage = document.getElementById("avatarImage");
