@@ -1,6 +1,7 @@
 # Bauhaus Avatar Generator
 
-![Bauhaus Avatar Generator](https://bauhaus-avatar-generator.pp.ua/test.svg)
+![Bauhaus Avatar Generator](https://bauhaus-avatar-generator.pp.ua/test.svg?size=100)
+![Bauhaus Avatar Generator](https://bauhaus-avatar-generator.pp.ua/test.svg?type=gradient&size=100)
 
 A TypeScript library for generating beautiful, deterministic Bauhaus-style SVG avatars from any input string. Each input string will always generate the same unique avatar, making it perfect for user profiles, placeholders, and visual identification.
 

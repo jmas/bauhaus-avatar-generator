@@ -9,11 +9,6 @@ export default {
   async fetch(request, env, ctx): Promise<Response> {
     const url = new URL(request.url);
 
-    // Handle favicon.svg requests by passing them to the server
-    // if (url.pathname === "/favicon.svg") {
-    //   return fetch(request);
-    // }
-
     const pathParts = url.pathname.split("/");
     const filename = pathParts.pop(); // abcd123.svg
     const [id, extension] = filename?.split(".") ?? []; // id = "abcd123", ext = "svg"
@@ -31,8 +26,13 @@ export default {
     }
 
     try {
+      const defaultSize = 200;
+
       // Check for query parameters
-      const icon = url.searchParams.get("icon");
+      const icon = url.searchParams.get("icon") || undefined;
+      const size = url.searchParams.has("size")
+        ? parseInt(url.searchParams.get("size") as string, 10) || defaultSize
+        : defaultSize;
       const type = url.searchParams.get("type") || "bauhaus"; // Default to bauhaus
       const complexity = url.searchParams.get("complexity") as
         | "simple"
@@ -50,6 +50,7 @@ export default {
       if (type === "gradient") {
         const gradientOptions: GradientGenerateOptions = {
           icon,
+          size,
           complexity: complexity || "medium",
           pattern: pattern || "random",
         };
@@ -62,7 +63,10 @@ export default {
         });
       } else {
         // Default bauhaus generation
-        const svgOptions: GenerateOptions = { icon: icon || undefined };
+        const svgOptions: GenerateOptions = {
+          icon,
+          size,
+        };
 
         return new Response(generateSVG(id, svgOptions), {
           headers: {
