@@ -53,7 +53,7 @@ const avatar2 = generateSVG("bob", {
 // Generate with user icon overlay
 const avatar3 = generateSVG("charlie", {
   size: 400,
-  showUserIcon: true,
+  icon: "user",
 });
 ```
 
@@ -147,7 +147,7 @@ interface GenerateOptions {
   colors?: string[]; // Array of hex color strings
   weights?: number[]; // Array of weights for each color (must match colors length)
   size?: number; // Size in pixels (default: 512)
-  showUserIcon?: boolean; // Show centered user icon overlay (default: false)
+  icon?: string; // Icon type to overlay (e.g., 'user' for user icon, default: undefined)
 }
 ```
 

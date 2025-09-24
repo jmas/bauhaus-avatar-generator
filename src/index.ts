@@ -47,7 +47,7 @@ interface GenerateOptions {
   colors?: string[];
   weights?: number[];
   size?: number;
-  showUserIcon?: boolean;
+  icon?: string;
 }
 
 function generateSVG(input: string, options: GenerateOptions = {}): string {
@@ -55,7 +55,7 @@ function generateSVG(input: string, options: GenerateOptions = {}): string {
     colors = DEFAULT_COLORS,
     weights = DEFAULT_WEIGHTS,
     size = 512,
-    showUserIcon = false,
+    icon = undefined,
   } = options;
 
   const seed = crc32(input);
@@ -183,7 +183,7 @@ function generateSVG(input: string, options: GenerateOptions = {}): string {
   }
 
   // Add user icon layer if requested
-  if (showUserIcon) {
+  if (icon === "user") {
     // Calculate user icon size with padding (80% of total size to maintain padding)
     const iconSize = size * 0.8;
     const iconOffset = (size - iconSize) / 2;

@@ -1,4 +1,4 @@
-import { generateSVG } from "bauhaus-avatar-generator";
+import { GenerateOptions, generateSVG } from "bauhaus-avatar-generator";
 
 export default {
   async fetch(request, env, ctx): Promise<Response> {
@@ -27,9 +27,9 @@ export default {
 
     try {
       // Check for user_icon query parameter
-      const showUserIcon = url.searchParams.has("user_icon");
+      const icon = url.searchParams.has("icon");
 
-      const svgOptions = showUserIcon ? { showUserIcon: true } : {};
+      const svgOptions = { icon } as GenerateOptions;
 
       return new Response(generateSVG(id, svgOptions), {
         headers: {

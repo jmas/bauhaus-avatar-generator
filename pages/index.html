@@ -336,10 +336,10 @@
 
         <h3>With User Icon Overlay</h3>
         <p>
-          Add <code>?user_icon</code> parameter to show a centered user icon:
+          Add <code>?icon=user</code> parameter to show a centered user icon:
         </p>
         <div class="url-example">
-          https://bauhaus-avatar-generator.pp.ua/{text}.svg?user_icon
+          https://bauhaus-avatar-generator.pp.ua/{text}.svg?icon=user
         </div>
 
         <h3>Examples</h3>
@@ -347,14 +347,14 @@
           https://bauhaus-avatar-generator.pp.ua/hello.svg<br />
           https://bauhaus-avatar-generator.pp.ua/world.svg<br />
           https://bauhaus-avatar-generator.pp.ua/example.svg<br />
-          https://bauhaus-avatar-generator.pp.ua/user.svg?user_icon
+          https://bauhaus-avatar-generator.pp.ua/user.svg?icon=user
         </div>
 
         <h3>Features</h3>
         <p>• 🎨 Bauhaus-inspired geometric design</p>
         <p>• 🔄 Deterministic - same input always produces the same avatar</p>
         <p>• 📱 SVG format - scalable and crisp at any size</p>
-        <p>• 👤 Optional user icon overlay - add ?user_icon parameter</p>
+        <p>• 👤 Optional user icon overlay - add ?icon=user parameter</p>
         <p>• ⚡ Zero dependencies - lightweight and fast</p>
       </div>
 
@@ -402,9 +402,9 @@
           input
         )}.svg`;
 
-        // Add user_icon parameter if checkbox is checked
+        // Add icon=user parameter if checkbox is checked
         if (showUserIcon) {
-          avatarUrl += "?user_icon";
+          avatarUrl += "?icon=user";
         }
 
         const avatarImage = document.getElementById("avatarImage");
