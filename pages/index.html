@@ -134,6 +134,7 @@
         background: #f8f9fa;
         outline: 3px solid rgba(0, 0, 0, 0.05);
         outline-offset: -3px;
+        transition: border-radius 0.3s ease;
       }
 
       .avatar-url {
@@ -273,12 +274,16 @@
         </div>
 
         <div class="input-group">
-          <label for="userIconToggle" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-            <input
-              type="checkbox"
-              id="userIconToggle"
-              style="margin: 0;"
-            />
+          <label
+            for="userIconToggle"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              cursor: pointer;
+            "
+          >
+            <input type="checkbox" id="userIconToggle" style="margin: 0" />
             👤 Show user icon overlay
           </label>
         </div>
@@ -297,6 +302,21 @@
               Your avatar will appear here
             </div>
           </div>
+
+          <div class="input-group" style="margin-top: 1rem">
+            <label for="radiusControl"
+              >Corner Radius: <span id="radiusValue">15</span>%</label
+            >
+            <input
+              type="range"
+              id="radiusControl"
+              min="1"
+              max="100"
+              value="15"
+              style="width: 100%; margin-top: 0.5rem"
+            />
+          </div>
+
           <div class="avatar-url" id="avatarUrl" style="display: none"></div>
         </div>
       </div>
@@ -315,7 +335,9 @@
         </div>
 
         <h3>With User Icon Overlay</h3>
-        <p>Add <code>?user_icon</code> parameter to show a centered user icon:</p>
+        <p>
+          Add <code>?user_icon</code> parameter to show a centered user icon:
+        </p>
         <div class="url-example">
           https://bauhaus-avatar-generator.pp.ua/{text}.svg?user_icon
         </div>
@@ -379,7 +401,7 @@
         let avatarUrl = `https://bauhaus-avatar-generator.pp.ua/${encodeURIComponent(
           input
         )}.svg`;
-        
+
         // Add user_icon parameter if checkbox is checked
         if (showUserIcon) {
           avatarUrl += "?user_icon";
@@ -395,6 +417,20 @@
         placeholder.style.display = "none";
         avatarUrlDiv.textContent = avatarUrl;
         avatarUrlDiv.style.display = "block";
+
+        // Apply current radius setting
+        updateAvatarRadius();
+      }
+
+      // Update avatar radius based on range input
+      function updateAvatarRadius() {
+        const radiusControl = document.getElementById("radiusControl");
+        const radiusValue = document.getElementById("radiusValue");
+        const avatarImage = document.getElementById("avatarImage");
+
+        const radius = radiusControl.value;
+        radiusValue.textContent = radius;
+        avatarImage.style.borderRadius = radius + "%";
       }
 
       // Generate initial avatar on page load
@@ -410,6 +446,11 @@
             generateAvatar();
           }
         });
+
+      // Handle radius control changes
+      document
+        .getElementById("radiusControl")
+        .addEventListener("input", updateAvatarRadius);
     </script>
   </body>
 </html>
