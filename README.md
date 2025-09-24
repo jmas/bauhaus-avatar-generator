@@ -266,6 +266,17 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Changelog
 
+### 4.0.0
+
+- 🎨 **NEW: Gradient Avatar Generation** - Brand new `generateGradientSVG` function for stunning gradient-based avatars
+- 🌈 **Advanced Color Harmony** - Complementary, triadic, analogous, and split-complementary color schemes
+- 🎭 **Multiple Gradient Patterns** - Radial, linear, mesh, and conic gradient support
+- 🔧 **Complexity Levels** - Simple, medium, and complex gradient generation options
+- 🎨 **Algorithmic Blending** - Smooth color transitions and advanced gradient patterns
+- 🎯 **Enhanced Color Theory** - Complete HSL/RGB conversion utilities and contrast calculations
+- 🌊 **Pattern Customization** - Fine-grained control over gradient complexity and visual style
+- 🎪 **Mix Blend Modes** - Advanced layering with multiply, overlay, soft-light, and hard-light modes
+
 ### 3.0.0
 
 - 🚀 **Major version release** - Enhanced avatar generation with improved algorithms

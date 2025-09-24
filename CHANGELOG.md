@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 2024-12-XX
+
+### Added
+
+- **NEW: Gradient Avatar Generation** - Brand new `generateGradientSVG` function for stunning gradient-based avatars
+- **Advanced Color Harmony** - Complementary, triadic, analogous, and split-complementary color schemes
+- **Multiple Gradient Patterns** - Radial, linear, mesh, and conic gradient support with `GradientGenerateOptions`
+- **Complexity Levels** - Simple, medium, and complex gradient generation options
+- **Algorithmic Blending** - Smooth color transitions and advanced gradient patterns
+- **Enhanced Color Theory** - Complete HSL/RGB conversion utilities and contrast calculations
+- **Pattern Customization** - Fine-grained control over gradient complexity and visual style
+- **Mix Blend Modes** - Advanced layering with multiply, overlay, soft-light, and hard-light modes
+- **Geometric Shape Overlays** - Optional geometric shapes for additional visual complexity
+- **Gradient Pattern Types** - Support for radial, linear, mesh, and conic gradient patterns
+- **Harmonious Color Generation** - Algorithmic generation of color palettes based on color theory
+
+### Technical Details
+
+- New `GradientGenerateOptions` interface for gradient avatar configuration
+- HSL/RGB color conversion utilities for advanced color manipulation
+- WCAG-compliant contrast calculations for optimal accessibility
+- Deterministic gradient generation using the same CRC32 hashing system
+- Support for multiple gradient layers with opacity and blend modes
+
 ## [3.0.0] - 2024-12-XX
 
 ### Added
