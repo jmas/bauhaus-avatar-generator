@@ -25,7 +25,30 @@ export default {
       return fetch(request);
     }
 
+    // Create cache key based on ID and query parameters
+    const cacheKey = new Request(url.toString(), request);
+    const cache = caches.default;
+
     try {
+      // Try to get cached response first
+      const cachedResponse = await cache.match(cacheKey);
+      if (cachedResponse) {
+        // Create new headers without the old cache status headers
+        const headers = new Headers(cachedResponse.headers);
+        headers.delete("X-Cache");
+        headers.delete("X-Cache-Status");
+        headers.set("X-Cache", "HIT");
+        headers.set("X-Cache-Status", "cached");
+
+        // Return cached response with updated headers
+        const response = new Response(cachedResponse.body, {
+          status: cachedResponse.status,
+          statusText: cachedResponse.statusText,
+          headers: headers,
+        });
+        return response;
+      }
+
       const defaultSize = 200;
 
       // Check for query parameters
@@ -47,6 +70,9 @@ export default {
         | "random"
         | undefined;
 
+      let svgContent: string;
+      let response: Response;
+
       if (type === "gradient") {
         const gradientOptions: GradientGenerateOptions = {
           icon,
@@ -55,12 +81,7 @@ export default {
           pattern: pattern || "random",
         };
 
-        return new Response(generateGradientSVG(id, gradientOptions), {
-          headers: {
-            "Content-Type": "image/svg+xml",
-            "Cache-Control": "public, immutable, max-age=31536000",
-          },
-        });
+        svgContent = generateGradientSVG(id, gradientOptions);
       } else {
         // Default bauhaus generation
         const svgOptions: GenerateOptions = {
@@ -68,15 +89,29 @@ export default {
           size,
         };
 
-        return new Response(generateSVG(id, svgOptions), {
-          headers: {
-            "Content-Type": "image/svg+xml",
-            "Cache-Control": "public, immutable, max-age=31536000",
-          },
-        });
+        svgContent = generateSVG(id, svgOptions);
       }
+
+      // Create response with cache headers
+      response = new Response(svgContent, {
+        headers: {
+          "Content-Type": "image/svg+xml",
+          "Cache-Control": "public, immutable, max-age=31536000",
+          ETag: `"${id}-${type}-${size}-${icon || "no-icon"}-${
+            complexity || "default"
+          }-${pattern || "default"}"`,
+          "X-Cache": "MISS",
+          "X-Cache-Status": "generated",
+        },
+      });
+
+      // Store in cache asynchronously (don't wait for it)
+      ctx.waitUntil(cache.put(cacheKey, response.clone()));
+
+      return response;
     } catch (error) {
       // If there's an error generating the SVG, pass through the request
+      console.error("Error generating SVG:", error);
       return fetch(request);
     }
   },
