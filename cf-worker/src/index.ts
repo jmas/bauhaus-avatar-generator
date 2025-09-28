@@ -9,6 +9,61 @@ export default {
   async fetch(request, env, ctx): Promise<Response> {
     const url = new URL(request.url);
 
+    // Handle favicon.ico redirect to favicon.svg
+    if (url.pathname === "/favicon.ico") {
+      return Response.redirect(
+        new URL("/favicon.svg", url.origin).toString(),
+        301
+      );
+    }
+
+    // Check if the request is for the allowed domain
+    if (env.ALLOWED_DOMAIN && url.hostname === env.ALLOWED_DOMAIN) {
+      const pathParts = url.pathname.split("/");
+      const filename = pathParts.pop(); // abcd123.svg
+
+      // If filename is empty (root path), return usage instructions
+      if (!filename || filename === "") {
+        const usageInstructions = `
+# Bauhaus Avatar Generator
+
+Generate unique Bauhaus-style avatars using this service.
+
+## Usage
+
+\`\`\`
+https://${env.ALLOWED_DOMAIN}/[ID].svg
+\`\`\`
+
+## Parameters
+
+- **ID**: A unique identifier (required)
+- **size**: Image size in pixels (default: 200)
+- **type**: Avatar type - "bauhaus" or "gradient" (default: bauhaus)
+- **icon**: Icon to include in the avatar (optional)
+- **complexity**: For gradient type - "simple", "medium", or "complex" (default: medium)
+- **pattern**: For gradient type - "radial", "linear", "mesh", "conic", or "random" (default: random)
+
+## Examples
+
+- \`https://${env.ALLOWED_DOMAIN}/user123.svg\`
+- \`https://${env.ALLOWED_DOMAIN}/user123.svg?size=400&type=gradient\`
+- \`https://${env.ALLOWED_DOMAIN}/user123.svg?size=300&icon=star&complexity=complex\`
+
+## Response
+
+Returns an SVG image with appropriate cache headers.
+        `.trim();
+
+        return new Response(usageInstructions, {
+          headers: {
+            "Content-Type": "text/plain",
+            "Cache-Control": "no-cache",
+          },
+        });
+      }
+    }
+
     const pathParts = url.pathname.split("/");
     const filename = pathParts.pop(); // abcd123.svg
     const [id, extension] = filename?.split(".") ?? []; // id = "abcd123", ext = "svg"
